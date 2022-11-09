@@ -18,4 +18,10 @@ public class UserRepo {
     public List<User> getAll() {
         return userRepo;
     }
+
+    public void add (User user) {
+        userRepo.add(user);
+    }
 }
+
+

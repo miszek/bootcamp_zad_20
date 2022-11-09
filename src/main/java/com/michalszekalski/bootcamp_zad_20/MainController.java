@@ -24,21 +24,7 @@ public class MainController {
         return users;
     }
 
-    @GetMapping("/add")
-    public String addUsingGet(@RequestParam(name = "imie", required = false, defaultValue = "") String firstName,
-                              @RequestParam(name = "nazwisko", required = false, defaultValue = "") String lastName,
-                              @RequestParam(name = "wiek", required = false, defaultValue = "") Integer age) {
-
-        if (firstName.equals("") || lastName.equals("") || age == null) {
-            return "err.html";
-        } else {
-            User user = new User(firstName, lastName, age);
-            userRepo.getAll().add(user);
-            return "success.html";
-        }
-    }
-
-    @PostMapping("/add")
+    @RequestMapping(value = "/add", method = {RequestMethod.POST, RequestMethod.GET})
     public String addUsingPost(@RequestParam(name = "imie", required = false, defaultValue = "") String firstName,
                                @RequestParam(name = "nazwisko", required = false, defaultValue = "") String lastName,
                                @RequestParam(name = "wiek", required = false, defaultValue = "") Integer age) {
@@ -47,7 +33,7 @@ public class MainController {
             return "redirect:/err.html";
         } else {
             User user = new User(firstName, lastName, age);
-            userRepo.getAll().add(user);
+            userRepo.add(user);
             return "redirect:/success.html";
         }
     }
